@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<title>Register ArcGIS</title>
+    <style>
+    #top-menu {
+    	float:right;
+    }
+    #top-menu a {
+    	margin:10px;
+    }
+    .center {
+    	display: table;
+    	margin: 0 auto;
+    }
+    .blurb {
+    	width:900px;
+    }
+    
+    .register {
+    	width:500px;
+    }
+    
+    #connect{
+    	display:none;
+    }
+    </style>
+<script>
+$( document ).ready(function() {
+	$("#register").submit(function(event) {
+		console.log(event);
+		event.preventDefault();
+		var inputArcGISClientId = event.target[0].value;
+		var inputArcGISRootUrl = event.target[1].value;
+		var jqxhr = $.get( "Register?inputArcGISClientId="+inputArcGISClientId+"&inputArcGISRootUrl="+inputArcGISRootUrl, function(msg) {
+		    $("#message").html("Registered ArcGIS successfully!");
+		    $("#message-json").html(msg);
+			}).done(function(msg) {
+			}).fail(function(error) {
+			}).always(function(msg) {
+			});
+	});
+});
+</script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-xs-12">
+        <div id="top-menu">
+        
+			
+      		<a class="btn btn-default" href="#" role="button">Existing Sign-in</a>
+        	<a class="btn btn-default" href="/Handlers/register.html" role="button">Register Portal for ArcGIS</a>
+        	<a id="connect" class="btn btn-default" href="https://www.arcgis.com/sharing/oauth2/authorize?client_id=UziRXpkEKRl7ATU8&response_type=code&expiration=-1&redirect_uri=http://localhost:8080/Handlers/Connect" role="button">Connect ArcGIS Account</a>
+
+        
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+        <div class="center"><h3>Configure your System with Portal for ArcGIS</h3></div>
+        <div class="blurb center"><p>Since the OAuth2 specification requires a clientId to broker authorization, 
+your system needs to be aware of the Portal for ArcGIS clientId.  Users of your system need to
+register their ArcGIS clientId and root url to their Portal for ArcGIS.  Registration is a one time setup, 
+however users would need to register their Portal for ArcGIS again if they delete the application 
+registered with your system.  Note when creating a redirect url for your application use <b>http://localhost:8080/Handlers/Connect</b>.</p>
+        </div>
+        </div>
+    </div>
+
+<div class="row">
+  <div class="col-xs-12">
+  
+  <form id="register" class="register center">
+  <div class="form-group">
+    <label for="inputArcGISClientId">Client Id</label>
+    <input type="text" class="form-control" id="inputArcGISClientId" placeholder="ClientId">
+  </div>
+  <div class="form-group">
+    <label for="inputArcGISRootUrl">Root Url</label>
+    <input type="text" class="form-control" id="inputArcGISRootUrl" placeholder="Root Url">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col-xs-12">
+  <p class="center" id="message"></p><p class="center" id="message-json"></p>
+  </div>
+  </div>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>
